@@ -30,7 +30,7 @@ jobs:
           solana --version
       - name: Install dependencies
         run: |
-          npm i -g @project-serum/anchor-cli
+          npm i -g @project-serum/anchor-cli@0.22.0
           npm install
       - name: Build the program and library
         run: |
