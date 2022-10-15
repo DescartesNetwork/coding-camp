@@ -29,6 +29,8 @@ describe('@sentre/codingcamp', function () {
 
   it('vote', async () => {
     const { ballotAddress } = await coddingCamp.vote(campaignName, projectName)
+    const voters = await coddingCamp.getTotalVoters(campaignName)
+    expect(voters).equal(1)
     const { campaign, project } = await coddingCamp.getBallotData(ballotAddress)
     expect(campaign).to.deep.equal(campaignId)
     expect(project).to.deep.equal(projectId)

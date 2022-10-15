@@ -7,6 +7,7 @@ import {
   DEFAULT_CODINGCAMP_IDL,
 } from './constant'
 import { deriveBallot, isAddress, uid } from './utils'
+import { encode } from 'bs58'
 
 class CodingCamp {
   private _connection: web3.Connection
@@ -100,6 +101,63 @@ class CodingCamp {
       this.program.programId,
     )
     return proposalPublicKey.toBase58()
+  }
+
+  /**
+   * Get total voters for a specific campaign
+   * @param campaignName Campaign name
+   * @returns Voters
+   */
+  getTotalVoters = async (campaignName: string) => {
+    const campaignId = encode(uid(campaignName))
+    const data = await this.program.provider.connection.getProgramAccounts(
+      this.program.programId,
+      {
+        filters: [
+          {
+            memcmp: {
+              bytes: campaignId,
+              offset: 8 + 32,
+            },
+          },
+        ],
+      },
+    )
+    return data.length
+  }
+
+  /**
+   * Get total voters for a specific project
+   * @param campaignName Campaign name
+   * @param projectName Project name
+   * @returns Voters
+   */
+  getTotalVotersForProject = async (
+    campaignName: string,
+    projectName: string,
+  ) => {
+    const campaignId = encode(uid(campaignName))
+    const projectId = encode(uid(projectName))
+    const data = await this.program.provider.connection.getProgramAccounts(
+      this.program.programId,
+      {
+        filters: [
+          {
+            memcmp: {
+              bytes: campaignId,
+              offset: 8 + 32,
+            },
+          },
+          {
+            memcmp: {
+              bytes: projectId,
+              offset: 8 + 64,
+            },
+          },
+        ],
+      },
+    )
+    return data.length
   }
 
   /**
