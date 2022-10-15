@@ -1,14 +1,18 @@
 [features]
 seeds = false
 [programs.localnet]
-coding_camp = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+coding_camp = "BraFayMWsP553wS4CoAzT24zZNP9rhd4oEEBdzQM8PGe"
+[programs.devnet]
+coding_camp = "BraFayMWsP553wS4CoAzT24zZNP9rhd4oEEBdzQM8PGe"
+[programs.mainnet]
+coding_camp = "BraFayMWsP553wS4CoAzT24zZNP9rhd4oEEBdzQM8PGe"
 
 [registry]
 url = "https://anchor.projectserum.com"
 
 [provider]
-cluster = "localnet"
-wallet = "/Users/tuphan/.config/solana/id.json"
+cluster = "devnet"
+wallet = "./coinbase.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

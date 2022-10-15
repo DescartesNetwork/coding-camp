@@ -5,6 +5,17 @@
     "lib": ["es2015"],
     "module": "commonjs",
     "target": "es6",
-    "esModuleInterop": true
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "skipLibCheck": true
+  },
+  "include": ["app"],
+  "exclude": ["node_modules", "dist"],
+  "typedocOptions": {
+    "entryPoints": ["./app/index.ts"],
+    "out": "docs"
   }
 }

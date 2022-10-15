@@ -9,7 +9,7 @@ pub struct VoteEvent {
 }
 
 #[derive(Accounts)]
-#[instruction(authority: Pubkey, campaign: [u8; 32], project: [u8; 32])]
+#[instruction(campaign: [u8; 32], project: [u8; 32])]
 pub struct Vote<'info> {
   #[account(mut)]
   pub authority: Signer<'info>,
@@ -19,6 +19,7 @@ pub struct Vote<'info> {
     space = Ballot::LEN,
     seeds = [
       b"ballot".as_ref(),
+      &authority.key().to_bytes(),
       &campaign,
       &project
     ],
@@ -29,20 +30,16 @@ pub struct Vote<'info> {
   pub rent: Sysvar<'info, Rent>,
 }
 
-pub fn exec(
-  ctx: Context<Vote>,
-  authority: Pubkey,
-  campaign: [u8; 32],
-  project: [u8; 32],
-) -> Result<()> {
+pub fn exec(ctx: Context<Vote>, campaign: [u8; 32], project: [u8; 32]) -> Result<()> {
   let ballot = &mut ctx.accounts.ballot;
+  let authority = &ctx.accounts.authority;
 
-  ballot.authority = authority;
+  ballot.authority = authority.key();
   ballot.campaign = campaign;
   ballot.project = project;
 
   emit!(VoteEvent {
-    authority,
+    authority: authority.key(),
     campaign,
     project
   });
