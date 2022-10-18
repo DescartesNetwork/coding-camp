@@ -3,8 +3,8 @@ import {
   AnchorProvider,
   workspace,
   web3,
+  Program,
 } from '@project-serum/anchor'
-import { Program } from '@project-serum/anchor'
 import { expect } from 'chai'
 import { DEFAULT_CODINGCAMP_PROGRAM_ID, deriveBallot, uid } from '../app'
 import { CodingCamp } from '../target/types/coding_camp'
