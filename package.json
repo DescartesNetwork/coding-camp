@@ -1,6 +1,6 @@
 {
   "name": "@sentre/codingcamp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/app/index.js",
   "scripts": {
     "prebuild": "npm run clean",

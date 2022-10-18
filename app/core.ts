@@ -46,11 +46,11 @@ class CodingCamp {
    * @param callback Event handler
    * @returns Listener id
    */
-  addListener = async <T extends keyof IdlEvents<CodingCampIdl>>(
+  addListener = <T extends keyof IdlEvents<CodingCampIdl>>(
     eventName: T,
     callback: (data: IdlEvents<CodingCampIdl>[T]) => void,
   ) => {
-    return await this.program.addEventListener(
+    return this.program.addEventListener(
       eventName as string,
       (data: IdlEvents<CodingCampIdl>[T]) => callback(data),
     )
